@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Avaliação</title>
+    <style type="text/css">
+       .button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      transition:.2s;
+    }
+    .button:active{
+    background-color: #503230;
+    transition:.2s;
+    }
+    #texto{
+        width: 300px;
+    }
+    .hide{
+        display: none;
+    }
+    textarea{
+        resize: none;
+    }
+    fieldset{
+        width: max-content;
+       
+        border: 2px dotted blueviolet;
+    }
+    legend{
+         font-weight: bolder;
+         font-size: 18px;
+    }
+    </style>
+</head>
+<body>
+    <h2> Sistema de Avaliação Online </h2>
+    <form>
+
+        <b>Seu Nome: </b> <input type="text" id="texto"/><br>
+        <fieldset>
+        <legend> 1. Qual curso Técnico do Amélia é da área de Tecnologia? </legend>
+        <select name="sel" id="Q01"> 
+        <option value="Administração">Administração</option>
+        <option value="Informática">Informática</option>
+        <option value="Enfermagem">Enfermagem</option>
+        </select>
+        </fieldset>
+        
+        <fieldset>
+            <legend>2. Quais cursos são ofertados na EEEP Amélia Figueiredo de Lavor?</legend>
+            <textarea name="tex1" id="Q02" cols="56" rows="5"></textarea> <br>
+        </fieldset>
+        <fieldset>
+            <legend>3. Marque as opções que possui os sistemas de numerações novos que 
+                    aprendemos no 1º de Informática</legend>
+        Sistema Octal <input type="checkbox" id="check1" name="check01" value="Sistema Octal"> <br>
+        Sistema Binário <input type="checkbox" id="check2" name="check02" value="Sistema Binário"> <br>
+        Sistema Decimal <input type="checkbox" id="check3" name="check03" value="Sistema Decimal"> <br>
+        Algarismos Hexadecimal <input type="checkbox" id="check4" name="check04" value="Algarismos Hexadecimal"> <br>
+        </fieldset>
+        <fieldset>
+         <legend>4. Qual o produto abaixo é mais adequado para limpar uma memória RAM?</legend>
+            <label for="iso">Álcool Isopropílico</label>
+            <input type="radio" name="limpeza01" id="iso"> <br>
+            <label for="con">Limpa Contato</label>
+            <input type="radio" name="limpeza02" id="con"> <br>
+            <label for="alc">Álcool 70%</label>
+            <input type="radio" name="limpeza03" id="alc"> <br>
+            <label for="agu">Água</label> 
+            <input type="radio" name="limpeza04" id="agu"> <br>
+        </fieldset> 
+
+        <fieldset>
+            <legend>5. Podemos afirmar que o modo de funcionamento de memória RAM em<br> 
+                DUAL CHANNEL só pode ser feito com pares de módulos de memória. 
+                Marque se a afirmação é verdadeira ou falsa.
+            </legend>
+            <label for="ver">Verdadeira</label>
+            <input type="radio" name="VF" id="ver"> <br>
+            <label for="fal">Falsa</label> 
+            <input type="radio" name="F" id="fal"> <br>
+        </fieldset>
+        
+        
+        <button type="button" class="button" onclick="corrigir()"><b>Corrigir</b></button>
+        <br>
+        <br>
+        <fieldset class="hide">
+            <legend><b>Resultado</b></legend>
+            <div id="nome"></div>
+            <div id="corretas01"></div>
+            <div id="corretas02"></div>
+            <div id="corretas03"></div>
+            <div id="corretas04"></div>
+            <div id="corretas051"></div>
+            <div id="corretas052"></div>
+            <div id="corretas053"></div>
+            <div id="percentual"></div>
+        </fieldset>
+    </form>
+    <script>
+function corrigir(){
+ document.querySelector(".hide").style.display = "block";
+
+ let nome = document.getElementById("texto").value;
+ document.getElementById("nome").innerHTML = "Nome: " + nome;
+
+ let corretas01 = document.querySelector("#Q01").value;
+ if(corretas01 == "Administração"){
+    document.getElementById("corretas01").innerHTML = "- 1º Questão: " + corretas01 + " ✖"
+ }else if(corretas01 == "Informática"){
+    document.getElementById("corretas01").innerHTML = "- 1º Questão: " + corretas01 + " ✔"
+ }else if(corretas01 == "Enfermagem"){
+     document.getElementById("corretas01").innerHTML = "- 1º Questão: " + corretas01 + " ✖"
+ }else{
+     document.getElementById("corretas01").innerHTML = "- 1º Questão: - Nenhuma das opções marcadas.";
+ }
+
+ let corretas02 = document.getElementById("Q02").value;
+    document.getElementById("corretas02").innerHTML = "- 2º Questão: - " + corretas02 + " ✔";
+
+ let limpeza01 = document.getElementById("iso");
+  let limpeza02 = document.getElementById("con");
+  let limpeza03 = document.getElementById("alc");
+  let limpeza04 = document.getElementById("agu");
+   if (limpeza01.checked) {
+    document.getElementById("corretas04").innerHTML = "- 4º Questão: - Álcool Isopropílico" + " ✖";
+  }else if(limpeza02.checked){
+  	document.getElementById("corretas04").innerHTML = "- 4º Questão: - Limpa Contato" + " ✔";
+  }else if(limpeza03.checked){
+  	document.getElementById("corretas04").innerHTML = "- 4º Questão: - Álcool 70%" + " ✖";
+  }else if(limpeza04.checked){
+  	document.getElementById("corretas04").innerHTML = "- 4º Questão: - Água" + " ✖";
+  }else{
+  	document.getElementById("corretas04").innerHTML = "- 4º Questão: - Nenhuma das opções marcadas.";
+  }
+  
+  let check01 = document.querySelector("#check1");
+  let check02 = document.querySelector("#check2");
+  let check03 = document.querySelector("#check3");
+  let check04 = document.querySelector("#check4");
+    
+  if (check01.checked) {
+    document.querySelector("#check1").value;  
+    document.querySelector("#corretas03").innerHTML = " - Sistema Octal" + " ✖";
+  }else if(check02.checked){
+    document.querySelector("#check2").value;  
+  	document.querySelector("#corretas03").innerHTML = " - Sistema Binário" + " ✔";
+  }else if(check03.checked){
+    document.querySelector("#check3").value;  
+  	document.querySelector("#corretas03").innerHTML = " - Sistema Decimal" + " ✖";
+  }else if(check04.checked){
+    document.querySelector("#check4").value;  
+  	document.querySelector("#corretas03").innerHTML = " - Algarismos Hexadecimal" + " ✔";
+  }else{
+  	document.querySelector("#corretas03").innerHTML = " - Nenhuma das opções marcadas.";
+  }
+  check01 = document.getElementById("corretas03").innerHTML = " - Sistema Octal" + " ✖";
+  check02 = document.getElementById("corretas03").innerHTML = " - Sistema Binário" + " ✔";
+  check03 = document.getElementById("corretas03").innerHTML = " - Sistema Decimal" + " ✖";
+  check04 = document.getElementById("corretas03").innerHTML = " - Algarismos Hexadecimal" + " ✔";
+  let corretas03 = document.getElementById("corretas03").innerHTML = "- 3º Questão: " + check01 + check02 + check03 + check04;
+
+  let VF = document.getElementById("ver");
+  let F = document.getElementById("fal");
+   if (VF.checked) {  
+   	document.getElementById("corretas051").innerHTML = "- 5º Questão: " + "Verdadeiro" + " ✔";
+   }else if (F.checked) {
+   	document.getElementById("corretas052").innerHTML = "- 5º Questão: " + "Falso" + " ✖";
+   }else{
+   	document.getElementById("corretas053").innerHTML = "- 5º Questão: - Nenhuma das opções marcadas.";
+   }
+   
+   valor01 = corretas01.value = 20;
+   valor02 = corretas02.value = 20;
+   valor03 = corretas03.value = 20;
+   valor04 = corretas04.value = 20;
+   valor05 = corretas051.value = 20;
+
+   valor = valor01 + valor02 + valor03 + valor04 + valor05;
+   document.getElementById("percentual").innerHTML = "Percentual: " + valor + "%" + " de 100%";
+	
+//    percentual = (parcial/total) * 100; 
+}
+  let indentf = "Desenvolvido por Lucas Rychardson 2º Ano Informática";
+  console.log(indentf);
+    </script>
+</body>
+</html>
